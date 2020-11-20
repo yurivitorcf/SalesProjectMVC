@@ -15,12 +15,12 @@ namespace SalesProjectMVC.Controllers
         {
             _salesRecordService = salesRecordService;
         }
-
-        public IActionResult Index()
+      
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var list = await _salesRecordService.FindAllAsync();
+            return View(list);
         }
-
         public async Task<IActionResult> SimpleSearch(DateTime? minDate, DateTime? maxDate)
         {
             if (!minDate.HasValue)

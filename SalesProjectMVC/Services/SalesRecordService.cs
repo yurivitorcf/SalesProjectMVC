@@ -15,7 +15,13 @@ namespace SalesProjectMVC.Services
         {
             _context = context;
         }
-
+        public async Task<List<SalesRecord>> FindAllAsync()
+        {
+            return await _context.SalesRecord           
+               .Include(x => x.Seller)
+               .Include(x => x.Seller.Department)                           
+               .ToListAsync();
+        }
         public async Task<List<SalesRecord>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {
             var result = from obj in _context.SalesRecord select obj;
